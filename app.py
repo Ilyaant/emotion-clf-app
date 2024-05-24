@@ -28,7 +28,7 @@ layout = [
     [sg.Button('Распознать эмоцию'), sg.Button('Выход'), sg.Push(), sg.Button('Помощь')]
 ]
 
-window = sg.Window('Помощник в путешествии', layout)
+window = sg.Window('Распознавание эмоции на фото', layout)
 
 while True:
     event, values = window.read()
