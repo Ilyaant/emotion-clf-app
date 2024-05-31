@@ -1,3 +1,4 @@
+from emotion_model import predict
 import PySimpleGUI as sg
 from PIL import Image
 import io
@@ -10,6 +11,7 @@ def prepare_image(path):
     res.save(bio, format="PNG")
     return bio.getvalue()
 
+
 def create_help_window():
     layout_help = [
         [sg.Text('Нажмите на кнопку "Выбрать файл...", чтобы перейти к поиску необходимой фотографии.')],
@@ -17,6 +19,7 @@ def create_help_window():
         [sg.Button('Закрыть')]
     ]
     return sg.Window('Помощь', layout_help)
+
 
 layout = [
     [sg.Text('Пожалуйста, выберите изображение:')],
@@ -39,7 +42,8 @@ while True:
     if event == 'Распознать эмоцию':
         img = prepare_image(values['-FILEPATH-'])
         window['-IMAGE-'].update(data=img)
-        # window['-EMOTION-'].update(f'Распознанная эмоция: {}')
+        emotion = predict.make_prediction(values['-FILEPATH-'])['preds_name']
+        window['-EMOTION-'].update(f'Распознанная эмоция: {emotion}')
 
     if event == 'Помощь':
         window_help = create_help_window()
